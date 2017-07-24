@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func getHost(url string) (host string){
+func getHost(url string) (host string) {
 	return "www.sapo.pt"
 }
 
@@ -34,9 +34,9 @@ func getHref(t html.Token) (ok bool, href string) {
 //}
 
 // Extract all http** links from a given webpage
-func crawl(iurl	 string, ch chan string, chFinished chan bool) {
+func crawl(iurl string, ch chan string, chFinished chan bool) {
 	resp, err := http.Get(iurl)
-//	protocol, host, path := processUrl(url)
+	//	protocol, host, path := processUrl(url)
 
 	defer func() {
 		// Notify that we're done after this function
@@ -49,9 +49,9 @@ func crawl(iurl	 string, ch chan string, chFinished chan bool) {
 	}
 	u, err := url.Parse(iurl)
 	if err != nil {
-			fmt.Println("ERROR: Parsing url" + iurl)
-			log.Fatal(err)
-		}
+		fmt.Println("ERROR: Parsing url" + iurl)
+		log.Fatal(err)
+	}
 
 	b := resp.Body
 	defer b.Close() // close Body when the function returns
@@ -85,9 +85,9 @@ func crawl(iurl	 string, ch chan string, chFinished chan bool) {
 				// @implement
 			} else if strings.Index(urln, "http") == 0 {
 				ch <- urln
-			} else if strings.Index(urln, "/") == 0  {
+			} else if strings.Index(urln, "/") == 0 {
 				ch <- u.Scheme + "://" + u.Host + urln
-			} else if strings.Index(urln, "#") == 0  {
+			} else if strings.Index(urln, "#") == 0 {
 				// @implement ?
 			} else {
 				ch <- urln
@@ -96,7 +96,7 @@ func crawl(iurl	 string, ch chan string, chFinished chan bool) {
 	}
 }
 
-func main2(){
+func main2() {
 	url2 := "http://sapo.pt"
 	u, err := url.Parse(url2)
 	if err != nil {
